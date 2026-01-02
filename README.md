@@ -1,33 +1,43 @@
-📚 Bookstore Management System – SQL Project (PostgreSQL)
+📚 Bookstore Sales Analysis (PostgreSQL)
 📌 Project Overview
 
-This project demonstrates SQL fundamentals to intermediate-level analysis using a fictional Bookstore Management System.
-The goal is to design a relational database, load real-world–like data, and extract meaningful business insights using SQL queries.
+This project demonstrates SQL fundamentals to intermediate-level analysis using a fictional Bookstore database.
+The goal is to design a relational schema, load data, and perform business-driven queries to extract insights such as sales, revenue, customer behavior, and inventory tracking.
 
-The project covers:
+This project is ideal for:
 
-Database design
+SQL practice
 
-Data loading using CSV files
+Portfolio demonstration
 
-Basic to advanced SQL queries
+Interview preparation (joins, aggregates, grouping, filtering)
 
-Business-focused analytical questions
-
-🛠️ Technologies Used
+🛠️ Tech Stack
 
 Database: PostgreSQL
 
 Language: SQL
 
-Tools: pgAdmin / psql
+Concepts Covered:
 
-Data Source: CSV files (Books, Customers, Orders)
+Table creation & relationships
+
+Data loading using COPY
+
+Filtering & sorting
+
+Aggregations (SUM, AVG, COUNT)
+
+JOIN, LEFT JOIN
+
+GROUP BY, HAVING
+
+Business-oriented analytical queries
 
 🗂️ Database Schema
 1️⃣ Book Table
 
-Stores book-related information.
+Stores book-level details including price and stock.
 
 CREATE TABLE Book (
     Book_ID SERIAL PRIMARY KEY,
@@ -41,7 +51,7 @@ CREATE TABLE Book (
 
 2️⃣ Customer Table
 
-Stores customer details.
+Stores customer demographic information.
 
 CREATE TABLE Customer (
     Customer_ID SERIAL PRIMARY KEY,
@@ -54,7 +64,7 @@ CREATE TABLE Customer (
 
 3️⃣ Orders Table
 
-Stores order transactions.
+Stores transaction-level data linking customers and books.
 
 CREATE TABLE Orderss (
     Order_ID SERIAL PRIMARY KEY,
@@ -65,120 +75,121 @@ CREATE TABLE Orderss (
     Total_Amount NUMERIC(10, 2)
 );
 
-📥 Data Loading (CSV Import)
+📥 Data Loading
 
-Data is imported using the COPY command:
+Data is imported using PostgreSQL’s COPY command from CSV files.
 
-COPY Book(Book_ID, Title, Author, Genre, Published_Year, Price, Stock)
-FROM 'C:\Program Files\PostgreSQL\17\book.csv'
+COPY Book(Book_ID, Title, Author, Genre, Published_Year, Price, Stock) 
+FROM 'C:\Program Files\PostgreSQL\17\book.csv' 
 DELIMITER ',' CSV HEADER;
 
-COPY Customer(Customer_ID, Name, Email, Phone, City, Country)
-FROM 'C:\Program Files\PostgreSQL\17\Customers.csv'
+COPY Customer(Customer_ID, Name, Email, Phone, City, Country) 
+FROM 'C:\Program Files\PostgreSQL\17\Customers.csv' 
 CSV HEADER;
 
-COPY Orderss(Order_ID, Customer_ID, Book_ID, Order_Date, Quantity, Total_Amount)
-FROM 'C:\Program Files\PostgreSQL\17\Orders.csv'
+COPY Orderss(Order_ID, Customer_ID, Book_ID, Order_Date, Quantity, Total_Amount) 
+FROM 'C:\Program Files\PostgreSQL\17\Orders.csv' 
 CSV HEADER;
 
-🔍 SQL Queries & Analysis
-🟢 Basic Queries
+🔍 SQL Analysis & Business Questions
+🔹 Basic Queries
 
-Retrieve all Fiction books
+Retrieve books by genre
 
-Find books published after 1950
+Filter books by publication year
 
-List customers from Canada
+List customers by country
 
-Orders placed in November 2023
+Orders placed in a specific month
 
 Total stock available
 
 Most expensive book
 
-Customers ordering more than 1 item
+High-quantity customers
 
-Orders with total amount > $20
+Orders above a revenue threshold
 
-Distinct book genres
+Distinct genres
 
-Book with lowest stock
+🔹 Intermediate Analysis
 
 Total revenue generated
 
-🔵 Advanced Analytical Queries
-
-Total books sold per genre
-
-Average price of Fantasy books
-
-Customers with at least 2 orders
+Customers with multiple orders
 
 Most frequently ordered book
 
-Top 3 most expensive Fantasy books
+Top expensive books by genre
 
-Quantity sold by each author
+Revenue & quantity analysis using joins
 
-Cities of customers who spent over $30
+🔹 Advanced Analysis
 
-Highest-spending customer
+Total books sold per genre
 
-Remaining stock after fulfilling all orders
+Average price by genre
 
-Remaining stock using LEFT JOIN (handling zero orders)
+Customer spending analysis
 
-🧠 Key Concepts Demonstrated
+Author-wise sales quantity
 
-JOIN, LEFT JOIN
+Stock remaining after sales
 
-GROUP BY, HAVING
+Inventory validation using LEFT JOIN
 
-Aggregate functions (SUM, AVG, COUNT)
+Example:
 
-Filtering with WHERE
+SELECT B.title, 
+       B.stock - COALESCE(SUM(O.quantity), 0) AS Remaining_stock
+FROM Book AS B
+LEFT JOIN Orderss AS O
+ON B.Book_id = O.Book_id
+GROUP BY B.book_id, B.title, B.stock;
 
-Date filtering using EXTRACT
+📊 Key Insights Generated
 
-Handling NULL values using COALESCE
+Revenue contribution by genre
 
-Business-oriented SQL thinking
+High-value customers
 
-📈 Business Insights Enabled
+Inventory depletion tracking
 
-Identify high-revenue customers
+Sales distribution by author
 
-Track inventory depletion
+Seasonal order analysis
 
-Understand genre-level sales performance
+Stock vs demand comparison
 
-Monitor author popularity
+🚀 Why This Project Matters
 
-Detect stock shortages early
+This project showcases:
 
-🚀 How to Run This Project
+Realistic SQL use cases
 
-Install PostgreSQL
+Clean schema design
 
-Create a new database
+Business-focused thinking
 
-Run the table creation scripts
+Interview-ready query patterns
 
-Import CSV files using COPY
-
-Execute analysis queries
-
-📌 Future Improvements
-
-Add foreign key constraints
-
-Create views for reusable analysis
-
-Automate reports using scheduled jobs
-
-Build dashboards using Power BI / Tableau
+It reflects how SQL is actually used in data analyst roles, not just textbook exercises.
 
 👤 Author
 
 Sabir Naik
-Data Analyst | SQL | Power BI | Excel
+Data Analyst | SQL | PostgreSQL | Power BI | Excel
+
+⭐ Suggestions
+
+If you like this project:
+
+⭐ Star the repository
+
+🍴 Fork it and extend with views or indexes
+
+📈 Add Power BI / Tableau dashboards
+
+
+
+
